@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	blogrenderer "github.com/kalwabed/blogrenderer"
+	blogrenderer "github.com/kalwabed/go-with-test/blogrenderer"
 )
 
 func TestRender(t *testing.T) {
@@ -15,7 +15,7 @@ func TestRender(t *testing.T) {
 		Tags:        []string{"go", "tdd"},
 	}
 
-	t.Run("it convers a single post into HTML ", func(t *testing.T) {
+	t.Run("it converts a single post into HTML", func(t *testing.T) {
 		buf := bytes.Buffer{}
 		err := blogrenderer.Render(&buf, aPost)
 		if err != nil {
@@ -23,10 +23,12 @@ func TestRender(t *testing.T) {
 		}
 
 		got := buf.String()
-		want := `<h1>hello world</h1>`
+		want := `<h1>hello world</h1>
+<p>This is a description</p>
+Tags: <ul><li>go</li><li>tdd</li></ul>`
 
 		if got != want {
-			t.Errorf("got '%s' want '%s", got, want)
+			t.Errorf("got '%s' want '%s'", got, want)
 		}
 	})
 }
